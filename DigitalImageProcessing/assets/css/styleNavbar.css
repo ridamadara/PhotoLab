@@ -1,0 +1,38 @@
+/*Navbar*/
+
+.navbar{
+    height: 51px;
+  }
+
+.navbar-brand {
+    padding: 0 15px;
+    height: 20px;
+    
+  }
+
+  
+
+.menu-bar {
+    background-image: linear-gradient(-90deg,#8fbc8f ,#2f4f4f);
+
+
+}
+
+.nav-link {
+    font-size: 20px;
+    margin: 3px;
+    color: #fff!important;
+    font-weight: 500;
+
+}
+.menu-bar.navbar-toggler{
+    padding-right: 26px;
+    outline: none!important;
+    border: none!important;
+
+}
+.nav-link:hover{
+    font-weight: 600;
+    border-bottom: 1px solid #fff;
+}
+

@@ -11,6 +11,9 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
+class ImageEditting(models.Model):
+    img = models.ImageField()
+
 
 class Client(models.Model):
     name = models.CharField(max_length=50)

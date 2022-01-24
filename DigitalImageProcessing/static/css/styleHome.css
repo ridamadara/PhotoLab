@@ -1,0 +1,76 @@
+/*Navbar*/
+
+.navbar{
+    height: 59px;
+}
+
+.navbar-brand {
+    padding: 0 15px;
+    height: 20px;
+    
+  }
+
+  
+
+.menu-bar {
+    background-image: linear-gradient(-90deg,#8fbc8f ,#2f4f4f);
+
+
+}
+
+.nav-link {
+    font-size: 20px;
+    margin: 3px;
+    color: #fff!important;
+    font-weight: 500;
+
+}
+.menu-bar.navbar-toggler{
+    padding-right: 26px;
+    outline: none!important;
+    border: none!important;
+
+}
+.nav-link:hover{
+    font-weight: 600;
+    border-bottom: 1px solid #fff;
+}
+
+ /*Slider*/
+ .carousel-item{
+    height: 20rem;
+    background: #777;
+    color: #fff;
+    position: relative;
+
+}
+.container{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 100px;
+
+}
+.card{
+    margin-top: 30px;
+    margin-left: 20px;
+    width: 300px;
+    background-color: #8fbc8f;
+    height: 250px;
+    color: darkcyan;
+    font-weight: bold;
+    border: 5px,solid;
+    
+    
+}
+.card-title{
+  color: black;
+  
+}
+.btn{
+  color: black;
+  background:#808080 ;
+  font-weight: bold;
+}
+

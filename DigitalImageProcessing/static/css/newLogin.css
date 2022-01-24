@@ -1,0 +1,66 @@
+/*Login*/
+body {
+    background-color:#333 !important;
+    color: rgb(204, 204, 204) !important;
+}
+
+.login-form{
+	padding: 50px 0;
+    
+        background-color: rgb(37, 37, 37);
+        max-width: 500px;
+        margin: auto;
+        padding: 40px 60px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        box-shadow: 0px 2px 10px rgb(131, 130, 130);
+    
+}
+
+
+
+.login-form .form-name{
+	text-align: center;
+    font-size: 40px;
+    color:#8fbc8f;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 25px;
+    line-height: 100px;
+}
+
+.login-form .item{
+	border-radius: 10px;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+}
+
+.login-form .login-account{
+    border-radius: 30px;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #8fbc8f;
+    border: none;
+    color: white;
+    margin-top: 20px;
+}
+
+.login-form .form-group a {
+    color: #8fbc8f !important;
+}
+
+
+.btn {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    border: 0;
+    border-radius: 10px !important;
+    margin: 5px 0;
+  }
+  
+  .btn:hover {
+    text-decoration: none;
+    opacity: 0.6;
+  }

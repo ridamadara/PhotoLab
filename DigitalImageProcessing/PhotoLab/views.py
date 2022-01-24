@@ -3,22 +3,50 @@ from django.shortcuts import render
 # Create your views here.
 from rest_framework.decorators import api_view
 from rest_framework.parsers import JSONParser
+import cv2
 from rest_framework.response import Response
-from .serializers import CommentSerializer
-from .tests import Comment
+from django.contrib.sessions.models import Session
+from django.views.decorators.csrf import csrf_protect
+
+from django.http import HttpResponse
+from .serializers import CommentSerializer, ResizeSerializer
+from .tests import Comment, ImageResizer
 import numpy as np
 from PIL import Image
 from .newtest import image_recognition
 from django.http import HttpResponse, JsonResponse
 from .models import User
-from .models import Client
+from .models import Client, ImageEditting
 from rest_framework.views import APIView
 from .serializers import UserSerializer
 from .serializers import ClientSerializer
 from deepface import DeepFace
 
 
-@api_view(['GET','POST'])
+@csrf_protect
+def img_resize(request):
+    if request.method == 'POST' and request.FILES['img']:
+    # if request.POST.get('img'):
+        image = request.FILES['img']
+        print(image)
+        width = int(request.POST['width'])
+        height = int(request.POST['height'])
+        img = Image.open(image)
+        array = np.array(img)
+        print("This is an array")
+        print(array)
+        print('Original Dimensions : ', array.shape)
+        resized = cv2.resize(array, (width, height), interpolation=cv2.INTER_AREA)
+        print('Resized Dimensions : ', resized.shape)
+        edited_image = Image.fromarray(resized, 'RGB')
+        #         resized_image.save('gfg_dummy_pic.png')
+        edited_image.save("F:/Images/Resized Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+@api_view(['GET', 'POST'])
 def comment_view(request):
     # c = Client.objects.get(id = 1)
     # p = c.image
@@ -26,11 +54,12 @@ def comment_view(request):
     # array = np.array(img)
     # print(array)
     # print(image_recognition(array))
-    message_obj = Comment("abc","def","laptop.jpg")
+    message_obj = Comment("abc", "def", "../media/pics/hamdan.jpeg")
     serializer_class = CommentSerializer(message_obj)
     return Response(serializer_class.data)
 
-@api_view(['GET','POST'])
+
+@api_view(['GET', 'POST'])
 def users(request):
     """
     List all code snippets, or create a new snippet.
@@ -44,9 +73,8 @@ def users(request):
         if user_serializer.is_valid():
             # user_serializer.save()
             print(user_serializer.data)
-            return JsonResponse({'status':'TRUE'}, safe=False)
+            return JsonResponse({'status': 'TRUE'}, safe=False)
         return JsonResponse({'status': 'FAIL'}, safe=False)
-
 
     if request.method == 'GET':
         users = User.objects.all()
@@ -54,7 +82,8 @@ def users(request):
         # return Response(serializer.data)
         return JsonResponse(serializer.data, safe=False)
 
-@api_view(['GET','POST'])
+
+@api_view(['GET', 'POST'])
 def clients(request):
     """
     List all code snippets, or create a new snippet.
@@ -66,7 +95,7 @@ def clients(request):
 
     if request.method == 'POST':
         c = request.FILES["image"]
-        data = json.loads(request.data['data'])
+        # data = json.loads(request.data['data'])
         print(c)
         return JsonResponse({'status': 'TRUE '}, safe=False)
         # client = JSONParser().parse(request)
@@ -78,3 +107,169 @@ def clients(request):
         #     print(client_serializer.data)
         #     return JsonResponse({'status':'TRUE '}, safe=False)
         # return JsonResponse({'status': 'FAIL'}, safe=False)
+
+# @api_view(['POSt'])
+# def image_resize(request):
+#     if request.method == 'POST':
+#         p = request.FILES["image"]
+#
+#         img = Image.open(p)
+#         array = np.array(img)
+#         print("This is an array")
+#         print(array)
+#
+#         print('Original Dimensions : ', array.shape)
+#         # cv2.imshow("orignal image", array)
+#         resized = cv2.resize(array, (100, 50), interpolation=cv2.INTER_AREA)
+#         print('Resized Dimensions : ', resized.shape)
+#         resized_image = Image.fromarray(resized, 'RGB')
+#         resized_image.save('gfg_dummy_pic.png')
+#         # client = Client(name = 'test',contact = '090',image = resized_image, doc = '2022-01-02' )
+#         # client.save()
+#         # u = Client
+#         # u.save()
+#         k = ImageEditting(img = "gfg_dummy_pic.png")
+#         k.save()
+#         return JsonResponse({'status': 'PASS'}, safe=False)
+#         # message_obj = Comment("abc", "def", resized_image)
+#         # # resized_image.save('gfg_dummy_pic.png')
+#         # serializer_class = CommentSerializer(message_obj)
+#         # return Response(serializer_class.data)
+#         # cv2.imshow("Resized image", resized)
+#         # cv2.waitKey(0)
+#         # cv2.destroyAllWindows()
+#         # return JsonResponse({'status': 'PASS','img':resized}, safe=False)
+
+
+@csrf_protect
+def gray_scale(request):
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        print(image)
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edited_image = Image.fromarray(gray_image, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+@csrf_protect
+def edge_detection(request):
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+@csrf_protect
+def blur(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+@csrf_protect
+def filter(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+@csrf_protect
+def brightness(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+@csrf_protect
+def human_recognition(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+@csrf_protect
+def text_recognition(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+@csrf_protect
+def login(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")
+
+
+
+@csrf_protect
+def home(request):   # not yet implemented
+    if request.method == 'POST' and request.FILES['img']:
+        image = request.FILES['img']
+        img = Image.open(image)
+        array = np.array(img)
+        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        edited_image = Image.fromarray(edges, 'RGB')
+        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newImageResize.html")
+    else:
+        return render(request, "newImageResize.html")

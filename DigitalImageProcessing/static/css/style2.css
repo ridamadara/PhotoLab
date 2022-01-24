@@ -1,0 +1,97 @@
+/*Navbar*/
+
+.menu-bar {
+    background-image: linear-gradient(-90deg,#8fbc8f ,#2f4f4f);
+
+}
+
+.nav-link {
+    font-size: 20px;
+    margin: 3px;
+    color: #fff!important;
+    font-weight: 500;
+
+}
+.menu-bar.navbar-toggler{
+    padding-right: 26px;
+    outline: none!important;
+    border: none!important;
+
+}
+.nav-link:hover{
+    font-weight: 600;
+    border-bottom: 1px solid #fff;
+}
+
+
+
+
+/*Image Preview*/
+
+body{
+    margin: 0px;
+    height: 100vh;
+    background:#333;
+    
+}
+.center{
+    height:100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.form-input{
+    width: 300px;
+    padding: 20px;
+    background:#333;
+    border:5px dashes #8fbc8f ;
+
+}
+.form-input input{
+    display: none;
+
+}
+
+.form-input label{
+    display: block;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    text-align: center;
+    background:#8fbc8f;
+    color:#fff;
+    font-size: 15px;
+    font-family:"Open Sans,sans-serif";
+    text-transform:Uppercase;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+
+
+}
+.form-input img{
+    width: 100%;
+    display: none;
+    margin-top: 10px;
+}
+.proceedbtn button{
+    margin-top: 10px;
+    width: 260px;
+    height: 50px;
+    text-align: center;
+    background:#8fbc8f;
+    color:#fff;
+    font-size: 15px;
+    font-family:"Open Sans,sans-serif";
+    text-transform:Uppercase;
+    font-weight: 600;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #333;
+}
+
+.btn-group{
+    margin-top: 300px;
+    margin-left: 650px;
+}

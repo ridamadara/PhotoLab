@@ -10,6 +10,9 @@ class CommentSerializer(serializers.Serializer):
     image = serializers.ImageField()
 
 
+class ResizeSerializer(serializers.ModelSerializer):
+    image = serializers.ImageField()
+
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
@@ -22,3 +25,4 @@ class ClientSerializer(serializers.ModelSerializer):
         model = Client
         # fields = ['url', 'username', 'email', 'is_staff']
         fields = '__all__'
+

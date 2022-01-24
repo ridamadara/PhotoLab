@@ -1,6 +1,7 @@
 from django.test import TestCase
 import os
 from PIL import Image
+# from deepface import DeepFace
 from deepface import DeepFace
 # Create your tests here.
 # img = Image.open('../media/pics/laptop.jpg')
@@ -15,6 +16,10 @@ class Comment:
         self.content = content
         self.created = created or datetime.now()
         self.image = 'laptop.jpg'
+
+class ImageResizer:
+    def __init__(self, image):
+        self.image = image
 
 
 
