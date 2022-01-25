@@ -217,16 +217,29 @@ def brightness(request):   # not yet implemented
 @csrf_protect
 def human_recognition(request):   # not yet implemented
     if request.method == 'POST' and request.FILES['img']:
-        image = request.FILES['img']
-        img = Image.open(image)
-        array = np.array(img)
-        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-        edited_image = Image.fromarray(edges, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newImageResize.html")
+        image = request.FILES['img']       #posted image
+        img = Image.open(image)       #posted image open
+        array_image = np.array(img)       #posted image array
+        image_to_be_passed = Image.fromarray(array_image, 'RGB')
+        all_client = Client.objects.all()
+        for client in all_client:
+            print(client.name)
+            client_image = client.image
+            client_image_open = Image.open(client_image)
+            client_image_array = np.array(client_image_open)
+            verification = DeepFace.verify(array_image, client_image_array)
+            print(verification)
+            x = verification["distance"]
+            if x <= 0.2:
+                print("This Client is verified")
+                print(client.name)
+                print(client.contact)
+                print(client.doc)
+                return render(request, "newHumanRec.html",{"name":client.name, "contact":client.contact,
+                                                           "doc":client.doc,"display_card_text":False,
+                                                           "image":image_to_be_passed, 'display_details':True})
     else:
-        return render(request, "newImageResize.html")
+        return render(request, "newHumanRec.html",{"display_card_text":True, 'display_details':False})
 
 
 @csrf_protect
