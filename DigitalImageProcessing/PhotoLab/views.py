@@ -259,56 +259,47 @@ def text_recognition(request):   # not yet implemented
         image = request.FILES['img']
         img = Image.open(image)
         array = np.array(img)
-        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-        edited_image = Image.fromarray(edges, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newImageResize.html")
+        image_to_be_saved = Image.fromarray(array,'RGB')
+        image_to_be_saved.save("F:/rida data/SE project/DigitalImageProcessing/media/pics/text.jpg")
+        # cv2.imwrite("../media/pics/"+"text",array)
+        # gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        # edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+        # edited_image = Image.fromarray(edges, 'RGB')
+        # edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+        return render(request, "newTextRec.html")
     else:
-        return render(request, "newImageResize.html")
+        return render(request, "newTextRec.html")
+
+
+@csrf_protect
+def home(request):   #implementing
+    return render(request, "newHome.html")
 
 
 @csrf_protect
 def login(request):   # not yet implemented  #implementing
+    if 'username' in request.session:
+        return home(request)
     if request.POST.get('username') and request.POST.get('password'):
         username = request.POST.get('username')
         password = request.POST.get('password')
+        request.session['username'] = username
+        print(request.session['username'],"this is username")
         print(username,password)
         try:
             user = User.objects.get(username = username)
             if user.password == password:
                 print("valid credentials")
+                return home(request)
+
             else:
                 print('invalid password')
 
         except:
             print('invalid username')
     return render(request, "newLogin.html")
-    # if request.method == 'POST' and request.FILES['img']:
-    #     image = request.FILES['img']
-    #     img = Image.open(image)
-    #     array = np.array(img)
-    #     gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-    #     edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-    #     edited_image = Image.fromarray(edges, 'RGB')
-    #     edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-    #     return render(request, "newImageResize.html")
-    # else:
-    #     return render(request, "newImageResize.html")
 
 
 
-@csrf_protect
-def home(request):   #implementing
-    return render(request, "newHome.html")
-    # if request.method == 'POST' and request.FILES['img']:
-    #     image = request.FILES['img']
-    #     img = Image.open(image)
-    #     array = np.array(img)
-    #     gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-    #     edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-    #     edited_image = Image.fromarray(edges, 'RGB')
-    #     edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-    #     return render(request, "newImageResize.html")
-    # else:
-    #     return render(request, "newImageResize.html")
+
+
