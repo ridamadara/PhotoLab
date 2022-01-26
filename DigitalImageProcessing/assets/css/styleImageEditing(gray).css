@@ -103,7 +103,7 @@
     
     /*Editing Options*/
     .btn-group{
-        margin-top: 30px;
+        margin-top: -200px;
         margin-left: 520px;
         background-color:#009578 ;
        
@@ -123,15 +123,40 @@
       border: 1px solid #000;
       border-radius: 5px;
       cursor: pointer;
-      margin-left: 700px;
-      margin-top: 70px; 
-       
+      margin-left: 600px;
+      text-decoration: none;
+      
+      
     }
 
     #gray-button:hover {
       background-color: #00b28f;
+      text-decoration: none;
+    }
+
+
+    #download-button {
+      padding: 10px;
+      color: white;
+      background-color: #009578;
+      border: 1px solid #000;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-left: 80px;
+      text-decoration: none;
+    
+       
+    }
+
+    #download-button:hover {
+      background-color: #00b28f;
+      text-decoration: none;
     }
   
+  
+.btns{
+  margin-top: -40px;
+}
 
 
 

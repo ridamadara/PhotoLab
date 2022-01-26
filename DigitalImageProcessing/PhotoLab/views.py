@@ -7,7 +7,7 @@ import cv2
 from rest_framework.response import Response
 from django.contrib.sessions.models import Session
 from django.views.decorators.csrf import csrf_protect
-
+import base64
 from django.http import HttpResponse
 from .serializers import CommentSerializer, ResizeSerializer
 from .tests import Comment, ImageResizer
@@ -148,12 +148,18 @@ def gray_scale(request):
         print(image)
         img = Image.open(image)
         array = np.array(img)
-        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-        edited_image = Image.fromarray(gray_image, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newImageResize.html")
+
+        ret, frame_buff = cv2.imencode('.jpg', array)  # could be png, update html as well
+        frame_b64 = base64.b64encode(frame_buff)
+
+
+        # gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+        # cv2.imwrite("F:/Images/Grayscale Images" + '/' + str(image),gray_image)
+
+
+        return render(request, "newImageEditing(gray).html",{'image':frame_b64})
     else:
-        return render(request, "newImageResize.html")
+        return render(request, "newImageEditing(gray).html")
 
 
 @csrf_protect
@@ -164,11 +170,12 @@ def edge_detection(request):
         array = np.array(img)
         gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
         edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-        edited_image = Image.fromarray(edges, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newImageResize.html")
+        # edited_image = Image.fromarray(edges, 'RGB')
+        # edited_image.save("F:/Images/Edge Detected Images" + '/' + str(image) )
+        cv2.imwrite("F:/Images/Edge Detected Images" + '/' + str(image), edges)
+        return render(request, "newImageEditing(edgedet).html")
     else:
-        return render(request, "newImageResize.html")
+        return render(request, "newImageEditing(edgedet).html")
 
 
 @csrf_protect
@@ -177,6 +184,10 @@ def blur(request):   # not yet implemented
         image = request.FILES['img']
         img = Image.open(image)
         array = np.array(img)
+
+        ret, frame_buff = cv2.imencode('.jpg', array)  # could be png, update html as well
+        frame_b64 = base64.b64encode(frame_buff)
+
         gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
         edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
         edited_image = Image.fromarray(edges, 'RGB')
@@ -258,31 +269,46 @@ def text_recognition(request):   # not yet implemented
 
 
 @csrf_protect
-def login(request):   # not yet implemented
-    if request.method == 'POST' and request.FILES['img']:
-        image = request.FILES['img']
-        img = Image.open(image)
-        array = np.array(img)
-        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-        edited_image = Image.fromarray(edges, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newImageResize.html")
-    else:
-        return render(request, "newImageResize.html")
+def login(request):   # not yet implemented  #implementing
+    if request.POST.get('username') and request.POST.get('password'):
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        print(username,password)
+        try:
+            user = User.objects.get(username = username)
+            if user.password == password:
+                print("valid credentials")
+            else:
+                print('invalid password')
+
+        except:
+            print('invalid username')
+    return render(request, "newLogin.html")
+    # if request.method == 'POST' and request.FILES['img']:
+    #     image = request.FILES['img']
+    #     img = Image.open(image)
+    #     array = np.array(img)
+    #     gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+    #     edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+    #     edited_image = Image.fromarray(edges, 'RGB')
+    #     edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+    #     return render(request, "newImageResize.html")
+    # else:
+    #     return render(request, "newImageResize.html")
 
 
 
 @csrf_protect
-def home(request):   # not yet implemented
-    if request.method == 'POST' and request.FILES['img']:
-        image = request.FILES['img']
-        img = Image.open(image)
-        array = np.array(img)
-        gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-        edited_image = Image.fromarray(edges, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newImageResize.html")
-    else:
-        return render(request, "newImageResize.html")
+def home(request):   #implementing
+    return render(request, "newHome.html")
+    # if request.method == 'POST' and request.FILES['img']:
+    #     image = request.FILES['img']
+    #     img = Image.open(image)
+    #     array = np.array(img)
+    #     gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
+    #     edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
+    #     edited_image = Image.fromarray(edges, 'RGB')
+    #     edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
+    #     return render(request, "newImageResize.html")
+    # else:
+    #     return render(request, "newImageResize.html")
