@@ -151,13 +151,13 @@ def gray_scale(request):
         img = Image.open(image)
         array = np.array(img)
 
-        ret, frame_buff = cv2.imencode('.jpg', array)  # could be png, update html as well
-        frame_b64 = base64.b64encode(frame_buff)
+        # ret, frame_buff = cv2.imencode('.jpg', array)  # could be png, update html as well
+        # frame_b64 = base64.b64encode(frame_buff)
 
         # gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
         # cv2.imwrite("F:/Images/Grayscale Images" + '/' + str(image),gray_image)
 
-        return render(request, "newImageEditing(gray).html", {'image': frame_b64})
+        # return render(request, "newImageEditing(gray).html", {'image': frame_b64})
     else:
         return render(request, "newImageEditing(gray).html")
 
@@ -202,14 +202,30 @@ def filter(request):  # not yet implemented
     if request.method == 'POST' and request.FILES['img']:
         image = request.FILES['img']
         img = Image.open(image)
-        array = np.array(img)
-        gray_image = cv2.cvtColor(array, cv2.COLOR_BGR2GRAY)
-        edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
-        edited_image = Image.fromarray(edges, 'RGB')
-        edited_image.save("F:/Images/Grayscale Images" + '/' + str(image))
-        return render(request, "newImageResize.html")
+        array = np.array(img)  # implementation below
+        cv2.imwrite("F:/rida data/SE project/DigitalImageProcessing/static/img/filter1.jpg", array)
+        averaging = cv2.blur(array, (5, 5))  # averaging
+        cv2.imwrite("F:/rida data/SE project/DigitalImageProcessing/static/img/averaging1.jpg" , averaging)
+        # averaging_img = Image.fromarray(averaging, 'RGB')
+        gaussian_blur = cv2.GaussianBlur(array,(5,5),0)
+        cv2.imwrite("F:/rida data/SE project/DigitalImageProcessing/static/img/gaussian_blur1.jpg", gaussian_blur)
+        # gaussian_blur_img = Image.fromarray(gaussian_blur, 'RGB')
+        median = cv2.medianBlur(array, 5)
+        cv2.imwrite("F:/rida data/SE project/DigitalImageProcessing/static/img/median1.jpg", median)
+        # median_img = Image.fromarray(median, 'RGB')
+        bilateral = cv2.bilateralFilter(array,9,75,75)
+        cv2.imwrite("F:/rida data/SE project/DigitalImageProcessing/static/img/bilateral1.jpg", bilateral)
+        # bilateral_img = Image.fromarray(bilateral, 'RGB')
+        # averaging_img.save("F:/rida data/SE project/DigitalImageProcessing/static/img/averaging.jpg")
+        # gaussian_blur_img.save("F:/rida data/SE project/DigitalImageProcessing/static/img/gaussian_blur.jpg")
+        # median_img.save("F:/rida data/SE project/DigitalImageProcessing/static/img/median.jpg")
+        # bilateral_img.save("F:/rida data/SE project/DigitalImageProcessing/static/img/bilateral.jpg")
+        # edited_image.save("F:/Images/Grayscale Images" + '/' + str(image))
+        return render(request, "newImageEditing(filter).html",{"display": True,
+                                                               "averaging":"../static/img/averaging1.jpg",
+                                                               "filter": "../static/img/filter1.jpg"})
     else:
-        return render(request, "newImageResize.html")
+        return render(request, "newImageEditing(filter).html",{"display": False,"filter": ""})
 
 
 @csrf_protect
@@ -256,7 +272,7 @@ def human_recognition(request):  # not yet implemented
 
 
 @csrf_protect
-def text_recognition(request):  # not yet implemented
+def text_recognition(request):
     if request.method == 'POST' and request.FILES['img']:
         image = request.FILES['img']
         img = Image.open(image)
@@ -266,16 +282,19 @@ def text_recognition(request):  # not yet implemented
         image_to_be_saved.save(path)
         pytesseract.tesseract_cmd = "C:\\Program Files\\Tesseract-OCR\\tesseract.exe"
         words_in_image = pytesseract.image_to_string(array)
+        # word_lst = pytesseract.image_to_data(array)
         print(words_in_image)
+        # print(word_lst)
 
         # cv2.imwrite("../static/img/text.jpg", array)
         # gray_image = cv2.cvtColor(array,cv2.COLOR_BGR2GRAY)
         # edges = cv2.Canny(gray_image, threshold1=30, threshold2=100)
         # edited_image = Image.fromarray(edges, 'RGB')
         # edited_image.save("F:/Images/Grayscale Images" + '/' + str(image) )
-        return render(request, "newTextRec.html", {"img": "../static/img/text.jpg"})
+        return render(request, "newTextRec.html", {"img": "../static/img/text.jpg","text":words_in_image,
+                                                   "display":False})
     else:
-        return render(request, "newTextRec.html", {"img": ""})
+        return render(request, "newTextRec.html", {"img": "","display":True})
 
 
 @csrf_protect

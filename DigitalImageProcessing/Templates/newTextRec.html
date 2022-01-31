@@ -57,13 +57,13 @@
     <a style="margin-left: 0px;" href="#">Human Recognition</a><br><br>
   </div>
 
-  <img src={{img}} style="margin-left: 630px;" class="center" id="blah"  width="50" height="50" />
+  <img src={{img}} style="margin-left: 533px;" class="center" id="blah"  width="50" height="50" />
 
     <form action="text_recognition" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
 
     <input name="img" id="img" style="padding-top:0px; margin-top: 30px; margin-left: 650px;  " class="center" type="file" accept="image/*"
     onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]) " >
-    <button type="submit" type="button" id="proceed-button">PROCEED</button>
+    <button   type="submit" type="button" id="proceed-button">PROCEED</button>
     </form>
 
     <ul class="nav nav-pills">
@@ -88,7 +88,9 @@
     
     <div class="card-body" >
       <blockquote class="blockquote mb-0" >
-        <p>Text appears here...</p>
+          {% if display %}
+        <p>Text appears here...</p>  {% endif %}
+          <p>{{text}}</p>
        
       </blockquote>
     </div>

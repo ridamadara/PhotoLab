@@ -1,0 +1,124 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Editing</title>
+
+
+    <!--Bootstrap css file-->
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+
+    <!--custom css file-->
+    <link rel="stylesheet" href="{% static 'css/styleImageEditing(filter).css' %}">
+
+
+</head>
+<body style="background-color: black;">
+
+
+
+    <!--Navbar-->
+    <div class="header fixed-top">
+        <div class="menu-bar">
+            <nav class="navbar navbar-expand-lg navbar-light ">
+
+                <a class="navbar-brand" href="#"><img src="{% static 'img/logo2.jpg' %}" alt="logo" style="margin-top: -15px;"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+
+
+
+                  </ul>
+                  <li class="nav-item dropdown">
+                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Username
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#">Logout</a></li>
+
+                      </ul>
+                    </li>
+                </div>
+
+            </nav>
+
+        </div>
+    </div>
+
+    <!-- Side navigation -->
+<div  class="sidenav ">
+    <a style="margin-left: 0px;" href="#">Text Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="#">Image Editing</a><br><br>
+    <a style="margin-left: 0px;" href="#">Image Resize</a><br><br>
+    <a style="margin-left: 0px;" href="#">Human Recognition</a><br><br>
+  </div>
+
+<!--  <img src="{% static 'img/noisy.jpg' %}" alt="picture" class="center">-->
+<img src="{{filter}}" class="center" id="blah" style="margin-left: 630px;" width="50" height="50" />
+
+    <form action="filter" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+    <input id="img" name="img" style="padding-top:0px; margin-top: 30px; margin-left: 650px;  " class="center" type="file"
+    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]) " >
+
+
+    <input type="file" id="real-file" hidden="hidden" />
+    <button type="submit" type="button" id="custom-button">PROCEED</button>
+        </form>
+    <button type="button" id="custom-button">DOWNLOAD IMAGE</button>
+<!--    <a id="download" href="#" style="margin-left: 30px;">Download image </a>-->
+    <ul class="nav nav-pills">
+        <li class="active">
+          <a href="#">Home</a>
+        </li>
+        <li><a href="#">...</a></li>
+        <li><a href="#">...</a></li>
+      </ul>
+
+
+<div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn " style="color: white;">Filter</button>
+        <button type="button" class="btn " style="color: white;">Brightness</button>
+        <button type="button" class="btn " style="color: white;">Blurring Effect</button>
+        <button type="button" class="btn " style="color: white;">Edge Detection</button>
+        <button type="button" class="btn " style="color: white;">Grayscale</button>
+
+</div>
+
+
+
+<!--<img style="width:230px" src="{% static 'img/noisy1.jpg' %}" alt="picture" class="filter1">-->
+<!--<img style="width:230px;margin-left: 510px;" src="{% static 'img/noisy2.jpg' %}" alt="picture" class="filter2">-->
+<!--<img style="width:230px;margin-left: 810px;" src="{% static 'img/noisy3.jpg' %}" alt="picture" class="filter3">-->
+<!--<img style="width:230px;margin-left: 1100px;" src="{% static 'img/noisy4.jpg' %}" alt="picture" class="filter4">-->
+{% if display %}
+<img style="width:230px;display: block;" src={{averaging}} alt="picture" class="filter1 center">
+<img style="width:230px;margin-left: 510px;display: block;" src="../static/img/gaussian_blur1.jpg" alt="picture" class="filter2">
+<img style="width:230px;margin-left: 810px;display: block;" src="../static/img/median1.jpg" alt="picture" class="filter3">
+<img style="width:230px;margin-left: 1100px;display: block;" src="../static/img/bilateral1.jpg" alt="picture" class="filter4">
+{% endif %}
+
+
+
+    <!--Jquery js file-->
+    <script src="{% static 'js/jquery.3.6.0.js' %}"></script>
+
+    <!--custom js file-->
+    <script src="{% static 'js/custom.js' %}"></script>
+
+
+
+
+    <!--Bootstrap js file-->
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>
