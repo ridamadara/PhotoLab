@@ -1,3 +1,124 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta http-equiv="X-UA-Compatible" content="IE=edge">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Image Editing</title>-->
+
+
+<!--    &lt;!&ndash;Bootstrap css file&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="./css/bootstrap.min.css">-->
+
+<!--    &lt;!&ndash;custom css file&ndash;&gt;-->
+<!--    <link rel="stylesheet" href="./css/styleImageEditing(blur).css">-->
+
+
+<!--</head>-->
+<!--<body style="background-color: black;">-->
+
+<!--    -->
+
+<!--    &lt;!&ndash;Navbar&ndash;&gt;-->
+<!--    <div class="header fixed-top">-->
+<!--        <div class="menu-bar">-->
+<!--            <nav class="navbar navbar-expand-lg navbar-light ">-->
+<!--            -->
+<!--                <a class="navbar-brand" href="#"><img src="./img/logo2.jpg" alt="logo" style="margin-top: -15px;"></a>-->
+<!--                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--                    <i class="fa fa-bars"></i>-->
+<!--                </button>-->
+<!--                <div class="collapse navbar-collapse" id="navbarSupportedContent">-->
+<!--                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">-->
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link active" aria-current="page" href="#">Home</a>-->
+<!--                    </li>-->
+<!--  -->
+<!--                    -->
+<!--                    -->
+<!--                  </ul>-->
+<!--                  <li class="nav-item dropdown">-->
+<!--                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">-->
+<!--                        Username-->
+<!--                      </a>-->
+<!--                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                        <li><a class="dropdown-item" href="#">Logout</a></li>-->
+<!--                        -->
+<!--                      </ul>-->
+<!--                    </li>-->
+<!--                </div>-->
+<!--              -->
+<!--            </nav>-->
+
+<!--        </div>-->
+<!--    </div>-->
+
+<!--    &lt;!&ndash; Side navigation &ndash;&gt;-->
+<!--<div  class="sidenav ">-->
+<!--    <a style="margin-left: 0px;" href="#">Text Recognition</a><br><br>-->
+<!--    <a style="margin-left: 0px;" href="#">Image Editing</a><br><br>-->
+<!--    <a style="margin-left: 0px;" href="#">Image Resize</a><br><br>-->
+<!--    <a style="margin-left: 0px;" href="#">Human Recognition</a><br><br>-->
+<!--  </div>-->
+
+<!--  <img src="./img/nature.jpg" alt="picture" class="center">-->
+
+<!--    <input type="file" id="real-file" hidden="hidden" />-->
+<!--    <button type="button" id="custom-button">CHOOSE A FILE</button>-->
+
+<!--    <a id="download" href="#" style="margin-left: 30px;">Download image </a>-->
+<!--    <ul class="nav nav-pills">-->
+<!--        <li class="active">-->
+<!--          <a href="#">Home</a>-->
+<!--        </li>-->
+<!--        <li><a href="#">...</a></li>-->
+<!--        <li><a href="#">...</a></li>-->
+<!--      </ul>-->
+
+<!--   -->
+<!--<div class="btn-group" role="group" aria-label="Basic example">-->
+<!--        <button type="button" class="btn " style="color: white;">Filter</button>-->
+<!--        <button type="button" class="btn " style="color: white;">Brightness</button>-->
+<!--        <button type="button" class="btn " style="color: white;">Blurring Effect</button> -->
+<!--        <button type="button" class="btn " style="color: white;">Edge Detection</button> -->
+<!--        <button type="button" class="btn " style="color: white;">Grayscale</button> -->
+
+<!--</div>   -->
+
+
+<!--<input type="range" class="form-range" >-->
+
+<!--<div style="padding-left: 450px;;" class="slidecontainer">-->
+<!--  -->
+<!--  <input style="width: 700px;" type="range" min="1" max="100" value="50">-->
+<!--  -->
+<!-- -->
+<!--</div>-->
+
+
+
+
+
+<!--    -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--    &lt;!&ndash;Jquery js file&ndash;&gt;-->
+<!--    <script src="./js/jquery.3.6.0.js"></script>-->
+<!--    -->
+<!--    &lt;!&ndash;custom js file&ndash;&gt;-->
+<!--    <script src="./js/custom.js"></script>-->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--    -->
+<!--    &lt;!&ndash;Bootstrap js file&ndash;&gt;-->
+<!--    <script src="./js/bootstrap.min.js"></script> -->
+<!--</body>-->
+<!--</html>-->
+
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,46 +129,61 @@
 
 
     <!--Bootstrap css file-->
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 
     <!--custom css file-->
-    <link rel="stylesheet" href="./css/styleImageEditing(blur).css">
+    <link rel="stylesheet" href="{% static 'css/styleImageEditing(edgedet).css' %}">
 
 
 </head>
 <body style="background-color: black;">
 
-    
+
 
     <!--Navbar-->
     <div class="header fixed-top">
         <div class="menu-bar">
             <nav class="navbar navbar-expand-lg navbar-light ">
-            
-                <a class="navbar-brand" href="#"><img src="./img/logo2.jpg" alt="logo" style="margin-top: -15px;"></a>
+
+                <a class="navbar-brand" href="#"><img src="{% static 'img/logo2.jpg' %}" alt="logo" style="margin-top: -15px;"></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <i class="fa fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
-  
-                    
-                    
+<!--                    <li class="nav-item">-->
+<!--                      <a class="nav-link active" aria-current="page" href="#" style="margin-left: 1240px;">Logout</a>-->
+<!--                    </li>-->
+
+
+
                   </ul>
-                  <li class="nav-item dropdown">
-                      <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Username
-                      </a>
-                      <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
-                        
-                      </ul>
-                    </li>
+                     <ul style="margin-left: -50px;" class="navbar-nav mr-auto">
+
+            <li  >
+<!--              <a   href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"-->
+<!--                aria-haspopup="true" aria-expanded="false">-->
+<!--                Logout-->
+<!--              </a>-->
+              <form action="login" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+              <input hidden name="hiddeninput" value="1">
+              <a type="submit" style="color:black;" class="nav-link active" aria-current="page"
+                 href="javascript:{}" onclick="document.getElementById('contactForm').submit();">Logout</a>
+              </form>
+<!--              <div style="width: 10px;height: 40%;" class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                -->
+<!--                <button  style=" width: 158px;height: 40px;margin-top: -7.7px;color: white;background:#212529;border:#212529;" (click)="logout()" >Logout</button>-->
+<!--  -->
+<!--              </div>-->
+            </li>
+
+          </ul>
+
                 </div>
-              
+
             </nav>
 
         </div>
@@ -55,64 +191,61 @@
 
     <!-- Side navigation -->
 <div  class="sidenav ">
-    <a style="margin-left: 0px;" href="#">Text Recognition</a><br><br>
-    <a style="margin-left: 0px;" href="#">Image Editing</a><br><br>
-    <a style="margin-left: 0px;" href="#">Image Resize</a><br><br>
-    <a style="margin-left: 0px;" href="#">Human Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="text_recognition">Text Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="/filter">Image Editing</a><br><br>
+    <a style="margin-left: 0px;" href="/resize">Image Resize</a><br><br>
+    <a style="margin-left: 0px;" href="/human_recognition">Human Recognition</a><br><br>
   </div>
 
-  <img src="./img/nature.jpg" alt="picture" class="center">
+  <img class="center" id="blah" style="margin-left: 630px;" width="50" height="50" />
 
-    <input type="file" id="real-file" hidden="hidden" />
-    <button type="button" id="custom-button">CHOOSE A FILE</button>
+    <form action="brightness" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+    <input id="img" name="img" style="padding-top:0px; margin-top: 30px; margin-left: 650px;  " class="center" type="file"
+           accept="image/*"
+    onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]) " >
 
-    <a id="download" href="#" style="margin-left: 30px;">Download image </a>
     <ul class="nav nav-pills">
         <li class="active">
-          <a href="#">Home</a>
+          <a href="/home">Home</a>
         </li>
         <li><a href="#">...</a></li>
         <li><a href="#">...</a></li>
       </ul>
 
-   
-<div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn " style="color: white;">Filter</button>
-        <button type="button" class="btn " style="color: white;">Brightness</button>
-        <button type="button" class="btn " style="color: white;">Blurring Effect</button> 
-        <button type="button" class="btn " style="color: white;">Edge Detection</button> 
-        <button type="button" class="btn " style="color: white;">Grayscale</button> 
 
-</div>   
+<div style="margin-left:580px" class="btn-group" role="group" aria-label="Basic example">
+<!--        <button type="button" class="btn " style="color: white;">Filter</button>-->
+<!--        <button type="button" class="btn " style="color: white;">Brightness</button>-->
+<!--&lt;!&ndash;        <button type="button" class="btn " style="color: white;">Blurring Effect</button>&ndash;&gt;-->
+<!--        <button type="button" class="btn " style="color: white;">Edge Detection</button>-->
+<!--        <button type="button" class="btn " style="color: white;">Grayscale</button>-->
 
+    <a href="/filter"> <button type="button" class="btn " style="color: white;">Filter</button></a>
+        <a href="brightness"><button type="button" class="btn " style="color: white;">Brightness</button></a>
+<!--        <button type="button" class="btn " style="color: white;">Blurring Effect</button>-->
+       <a href="/detect_edges"><button type="button" class="btn " style="color: white;">Edge Detection</button></a>
+       <a href="/grayscale"> <button type="button" class="btn " style="color: white;">Grayscale</button></a>
 
-<input type="range" class="form-range" >
-
-<div style="padding-left: 450px;;" class="slidecontainer">
-  
-  <input style="width: 700px;" type="range" min="1" max="100" value="50">
-  
- 
 </div>
 
 
+<button style="margin-left:670px" type="submit" type="button" id="detect-button">PROCEED AND DOWNLOAD</button>
+    </form>
 
 
 
-    
-    
-    
-    
+
+
     <!--Jquery js file-->
-    <script src="./js/jquery.3.6.0.js"></script>
-    
+    <script src="{% static 'js/jquery.3.6.0.js' %}"></script>
+
     <!--custom js file-->
-    <script src="./js/custom.js"></script>
-    
-    
-    
-    
+    <script src="{% static 'js/custom.js' %}"></script>
+
+
+
+
     <!--Bootstrap js file-->
-    <script src="./js/bootstrap.min.js"></script> 
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
 </html>

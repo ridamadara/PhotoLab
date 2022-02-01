@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email</title>
+    
+</head>
+<body style="background-color: black;">
+
+    <form action="email_recovery" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+        <label for="email" style="position: absolute; right: 820px; bottom: 50%; color: #8fbc8f; font-size:xx-large;">Enter your email:</label>
+        <input type="email" id="email" name="email" style="position: absolute; bottom: 50%; right:550px; height:25px; width: 250px";>
+        <button type="submit" type="button" style=" width: 100px;height: 30px; position:absolute; right: 850px; bottom: 250px;
+        text-align: center;
+        background:#8fbc8f;
+        border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #333; height: 50px;">Proceed</button>
+      </form>
+      <a href="/login"><button type="button" style=" width: 100px;height: 30px; position:absolute; right:700px ; bottom: 250px;
+      text-align: center;
+    background:#8fbc8f;
+    border-radius: 10px;
+    cursor: pointer;
+    border: 1px solid #333; height: 50px; ">Back to Login</button>
+          <h3 style="position:absolute; right:660px ; bottom: 200px;
+      text-align: center;color:#8fbc8f">{{message}}</h3>
+    
+</body>
+</html>

@@ -31,15 +31,35 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
 
 
 
                   </ul>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" style="margin-left: 1240px;">Logout</a>
-                  </li>
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#" style="margin-left: 1240px;">Logout</a>-->
+<!--                  </li>-->
+                    <ul style="margin-left: -50px;" class="navbar-nav mr-auto">
+
+            <li  >
+<!--              <a   href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"-->
+<!--                aria-haspopup="true" aria-expanded="false">-->
+<!--                Logout-->
+<!--              </a>-->
+              <form action="login" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+              <input hidden name="hiddeninput" value="1">
+              <a type="submit" style="color:black;" class="nav-link active" aria-current="page"
+                 href="javascript:{}" onclick="document.getElementById('contactForm').submit();">Logout</a>
+              </form>
+<!--              <div style="width: 10px;height: 40%;" class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                -->
+<!--                <button  style=" width: 158px;height: 40px;margin-top: -7.7px;color: white;background:#212529;border:#212529;" (click)="logout()" >Logout</button>-->
+<!--  -->
+<!--              </div>-->
+            </li>
+
+          </ul>
                 </div>
 
             </nav>
@@ -49,19 +69,21 @@
 
     <!-- Side navigation -->
 <div  class="sidenav ">
-    <a style="margin-left: 0px;" href="#">Text Recognition</a><br><br>
-    <a style="margin-left: 0px;" href="#">Image Editing</a><br><br>
-    <a style="margin-left: 0px;" href="#">Image Resize</a><br><br>
-    <a style="margin-left: 0px;" href="#">Human Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="text_recognition">Text Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="/filter">Image Editing</a><br><br>
+    <a style="margin-left: 0px;" href="/resize">Image Resize</a><br><br>
+    <a style="margin-left: 0px;" href="/human_recognition">Human Recognition</a><br><br>
   </div>
 
-  <img class="center" id="blah"  width="50" height="50" />
+  <img style="margin-left: 630px;" src="{{filter}}" class="center" id="blah"  width="50" height="50" />
 
+     <form action="filter" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
 
-  <input style="padding-top:0px; margin-top: 30px; margin-left: 650px;  " class="" type="file"
+  <input  id="img" name="img" style="padding-top:0px; margin-top: 30px; margin-left: 650px;  " class="" type="file"
+         accept="image/*"
   onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]) " >
 
-  <button  style="margin-left:650px;margin-top:26px;padding-left:18px;padding-right:18px;padding: 10px;
+  <button type="submit" style="margin-left:650px;margin-top:20px;padding-left:18px;padding-right:18px;padding: 10px;
 color: white;
       background-color: #009578;
       border: 1px solid #000;
@@ -70,32 +92,35 @@ color: white;
 
 
 
-      top:330px;"
-           type="button" id="detect-button">Proceed</button>
+      top:300px;"
+          type="button" id="detect-button">Proceed</button></form>
+
+
     <ul class="nav nav-pills">
         <li class="active">
-          <a href="#">Home</a>
+          <a href="/home">Home</a>
         </li>
         <li><a href="#">...</a></li>
         <li><a href="#">...</a></li>
       </ul>
 
 
-<div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn " style="color: white;">Filter</button>
-        <button type="button" class="btn " style="color: white;">Brightness</button>
-        <button type="button" class="btn " style="color: white;">Blurring Effect</button>
-        <button type="button" class="btn " style="color: white;">Edge Detection</button>
-        <button type="button" class="btn " style="color: white;">Grayscale</button>
+<div style="margin-top:-30px;margin-left:580px" class="btn-group" role="group" aria-label="Basic example">
+       <a href="/filter"> <button type="button" class="btn " style="color: white;">Filter</button></a>
+        <a href="brightness"><button type="button" class="btn " style="color: white;">Brightness</button></a>
+<!--        <button type="button" class="btn " style="color: white;">Blurring Effect</button>-->
+       <a href="/detect_edges"><button type="button" class="btn " style="color: white;">Edge Detection</button></a>
+       <a href="/grayscale"> <button type="button" class="btn " style="color: white;">Grayscale</button></a>
 
 </div>
 
 
 {% if display %}
-<a style="left:250px;position:absolute;top:500px;" href="#"><img style="height:150px;width:210px;" src="../static/img/gaussian_blur1.jpg" alt="picture" ></a>
-<a style="left:510px;position:absolute;top:500px" href="#"><img style="height:150px;width:210px;" src="../static/img/gaussian_blur1.jpg" alt="picture" ></a>
-<a style="left:-99px;position:absolute;top:670px" href="#"><img style="height:150px;width:210px;" src="../static/img/median1.jpg" alt="picture" class="filter3"></a>
-<a style="left:-160px;position:absolute;top:670px" href="#"><img style="height:150px;width:210px;" src="../static/img/bilateral1.jpg" alt="picture" class="filter4"></a>
+
+<a style="left:250px;position:absolute;top:500px;" href = "filter?id=1"><img style="height:150px;width:210px;" src="../static/img/averaging1.jpg" alt="picture" ></a>
+<a style="left:510px;position:absolute;top:500px" href="filter?id=2"><img style="height:150px;width:210px;" src="../static/img/gaussian_blur1.jpg" alt="picture" ></a>
+<a style="left:-99px;position:absolute;top:670px" href="filter?id=3"><img style="height:150px;width:210px;" src="../static/img/median1.jpg" alt="picture" class="filter3"></a>
+<a style="left:-160px;position:absolute;top:670px" href="filter?id=4"><img style="height:150px;width:210px;" src="../static/img/bilateral1.jpg" alt="picture" class="filter4"></a>
 {% endif %}
 
 <!--    {% if display %}-->

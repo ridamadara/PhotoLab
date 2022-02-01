@@ -3,10 +3,10 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.comment_view, name='comment_view'),
-    path('users', views.users, name='users'),
-    path('clients', views.clients, name='clients'),
-
+    # path('', views.comment_view, name='comment_view'),
+    # path('users', views.users, name='users'),
+    # path('clients', views.clients, name='clients'),
+    path('email_recovery', views.email_recovery, name='email_recovery'),
     path('resize', views.img_resize, name='resize'),
     path('blur', views.blur, name='blur'),
     path('filter', views.filter, name='filter'),

@@ -33,15 +33,35 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                   <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                      <a class="nav-link active" aria-current="page" href="/home">Home</a>
                     </li>
   
                     
                     
                   </ul>
-                  <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#" style="margin-left: 1240px;">Logout</a>
-                  </li>
+<!--                  <li class="nav-item">-->
+<!--                    <a class="nav-link active" aria-current="page" href="#" style="margin-left: 1240px;">Logout</a>-->
+<!--                  </li>-->
+                       <ul style="margin-left: -50px;" class="navbar-nav mr-auto">
+
+            <li  >
+<!--              <a   href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"-->
+<!--                aria-haspopup="true" aria-expanded="false">-->
+<!--                Logout-->
+<!--              </a>-->
+              <form action="login" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+              <input hidden name="hiddeninput" value="1">
+              <a type="submit" style="color:black;" class="nav-link active" aria-current="page"
+                 href="javascript:{}" onclick="document.getElementById('contactForm').submit();">Logout</a>
+              </form>
+<!--              <div style="width: 10px;height: 40%;" class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                -->
+<!--                <button  style=" width: 158px;height: 40px;margin-top: -7.7px;color: white;background:#212529;border:#212529;" (click)="logout()" >Logout</button>-->
+<!--  -->
+<!--              </div>-->
+            </li>
+
+          </ul>
                 </div>
               
             </nav>
@@ -51,24 +71,24 @@
 
     <!-- Side navigation -->
 <div  class="sidenav ">
-    <a style="margin-left: 0px;" href="#">Text Recognition</a><br><br>
-    <a style="margin-left: 0px;" href="#">Image Editing</a><br><br>
-    <a style="margin-left: 0px;" href="#">Image Resize</a><br><br>
-    <a style="margin-left: 0px;" href="#">Human Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="text_recognition">Text Recognition</a><br><br>
+    <a style="margin-left: 0px;" href="/filter">Image Editing</a><br><br>
+    <a style="margin-left: 0px;" href="/resize">Image Resize</a><br><br>
+    <a style="margin-left: 0px;" href="/human_recognition">Human Recognition</a><br><br>
   </div>
 
-  <img src={{img}} style="margin-left: 533px;" class="center" id="blah"  width="50" height="50" />
+  <img src="{{img}}" style="margin-left: 533px;position:absolute;" class="center" id="blah"  width="50" height="50" />
 
-    <form action="text_recognition" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+    <form action="text_recognition" enctype="multipart/form-data" method="post" id="contactForm1" novalidate="novalidate">{% csrf_token %}
 
-    <input name="img" id="img" style="padding-top:0px; margin-top: 30px; margin-left: 650px;  " class="center" type="file" accept="image/*"
+    <input name="img" id="img" style="padding-top:0px; margin-top: 300px; margin-left: 650px;  " class="center" type="file" accept="image/*"
     onchange="document.getElementById('blah').src = window.URL.createObjectURL(this.files[0]) " >
     <button   type="submit" type="button" id="proceed-button">PROCEED</button>
     </form>
 
     <ul class="nav nav-pills">
         <li class="active">
-          <a href="#">Home</a>
+          <a href="/home">Home</a>
         </li>
         <li><a href="#">...</a></li>
         <li><a href="#">...</a></li>
@@ -84,7 +104,7 @@
 
 
 
-<div class="card" style="width: 700px; height: 160px; margin-left: 420px; margin-top: -60px; background: gray;">
+<div class="card" style="width: 700px; height: 160px; margin-left: 420px; margin-top: 400px; background: gray;">
     
     <div class="card-body" >
       <blockquote class="blockquote mb-0" >
