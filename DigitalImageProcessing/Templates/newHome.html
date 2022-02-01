@@ -41,18 +41,24 @@
               <li><a class="dropdown-item" href="#">Logout</a></li>
             </ul>
           </li> -->
-          <ul style="margin-left: -40px;" class="navbar-nav mr-auto">
+
+          <ul style="margin-left: -50px;" class="navbar-nav mr-auto">
           
-            <li  class="nav-item dropdown">
-              <a  class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false">
-                hi username
-              </a>
-              <div style="width: 10px;height: 40%;" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                
-                <button  style=" width: 158px;height: 40px;margin-top: -7.7px;color: white;background:#212529;border:#212529;" (click)="logout()" >Logout</button>
-  
-              </div>
+            <li  >
+<!--              <a   href="#" id="navbarDropdown1" role="button" data-toggle="dropdown"-->
+<!--                aria-haspopup="true" aria-expanded="false">-->
+<!--                Logout-->
+<!--              </a>-->
+              <form action="login" enctype="multipart/form-data" method="post" id="contactForm" novalidate="novalidate">{% csrf_token %}
+              <input hidden name="hiddeninput" value="1">
+              <a type="submit" style="color:black;" class="nav-link active" aria-current="page"
+                 href="javascript:{}" onclick="document.getElementById('contactForm').submit();">Logout</a>
+              </form>
+<!--              <div style="width: 10px;height: 40%;" class="dropdown-menu" aria-labelledby="navbarDropdown">-->
+<!--                -->
+<!--                <button  style=" width: 158px;height: 40px;margin-top: -7.7px;color: white;background:#212529;border:#212529;" (click)="logout()" >Logout</button>-->
+<!--  -->
+<!--              </div>-->
             </li>
             
           </ul>

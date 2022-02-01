@@ -221,11 +221,11 @@ def filter(request):  # not yet implemented
         # median_img.save("F:/rida data/SE project/DigitalImageProcessing/static/img/median.jpg")
         # bilateral_img.save("F:/rida data/SE project/DigitalImageProcessing/static/img/bilateral.jpg")
         # edited_image.save("F:/Images/Grayscale Images" + '/' + str(image))
-        return render(request, "newImageEditing(filter).html",{"display": True,
+        return render(request, "filter.html",{"display": True,
                                                                "averaging":"../static/img/averaging1.jpg",
                                                                "filter": "../static/img/filter1.jpg"})
     else:
-        return render(request, "newImageEditing(filter).html",{"display": False,"filter": ""})
+        return render(request, "filter.html",{"display": False,"filter": ""})
 
 
 @csrf_protect
@@ -250,6 +250,9 @@ def human_recognition(request):  # not yet implemented
         img = Image.open(image)  # posted image open
         array_image = np.array(img)  # posted image array
         image_to_be_passed = Image.fromarray(array_image, 'RGB')
+        # image_to_be_saved = Image.fromarray(array, 'RGB')
+        path = "F:/rida data/SE project/DigitalImageProcessing/static/img/human.jpg"
+        image_to_be_passed.save(path)
         all_client = Client.objects.all()
         for client in all_client:
             print(client.name)
@@ -266,7 +269,8 @@ def human_recognition(request):  # not yet implemented
                 print(client.doc)
                 return render(request, "newHumanRec.html", {"name": client.name, "contact": client.contact,
                                                             "doc": client.doc, "display_card_text": False,
-                                                            "image": image_to_be_passed, 'display_details': True})
+                                                            "image": image_to_be_passed, 'display_details': True,
+                                                            "human_path":"../static/img/human.jpg"})
     else:
         return render(request, "newHumanRec.html", {"display_card_text": True, 'display_details': False})
 
@@ -304,6 +308,10 @@ def home(request):  # implementing
 
 @csrf_protect
 def login(request):  # not yet implemented  #implementing
+    if request.POST.get('hiddeninput'):
+        print("hidden input recieved")
+        del request.session['username']
+        # return render(request, "newLogin.html")
     if 'username' in request.session:
         return home(request)
     if request.POST.get('username') and request.POST.get('password'):
